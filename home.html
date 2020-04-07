@@ -3,11 +3,59 @@
 <head>
     <title>Express HTML</title>
     <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js" charset="utf-8"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
+
+<script type="text/babel">
+    class Quiz extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                correct: null
+            };
+        }
+        
+        answer(correct) {
+            this.setState({
+                correct
+            });
+        }
+    
+        render() {
+            let question = null;
+            if (this.state.correct === null) {
+                question = <div>
+                    <button onClick={() => this.answer(false)}>a) A graph database query language</button>
+                    <button onClick={() => this.answer(true)}>b) An API query language</button>
+                    <button onClick={() => this.answer(false)}>c) A graph drawing API</button>
+                </div>;
+            }
+            let answer = null;
+            if (this.state.correct === true) {
+                answer = <div className="correct">Correct! It is an API query language</div>;
+            } else if (this.state.correct === false) {
+                answer = <div className="incorrect">Nope! It's actually an API query language</div>;
+            }
+            
+            return <div className="quiz">
+                <p>What is GraphQL?</p>
+                {question}
+                {answer}
+            </div>;
+        }
+    }
+    ReactDOM.render(
+        <Quiz />,
+        document.getElementById('quiz')
+    );
+    </script>
+
 <body>
     <div style="margin:100px;">
         <nav class="navbar navbar-inverse navbar-static-top">
@@ -29,6 +77,7 @@
           <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
         </div>
     </div>
+    <div id="quiz"></div>
     
 
 </body>
