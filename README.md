@@ -1,3 +1,2 @@
-Wild Fire data visualization using D3.js
+Wild Fire data visualization using Plotly, seaborn and matplotlib.
 
-Git clone and to install dependecies do `npm install` 
